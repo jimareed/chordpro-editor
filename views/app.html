@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>Chordpro Editor</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.min.css"/>
+  <script src="controllers/app.js"></script>
+</head>
+<body ng-controller="controller">
+  <div class="navbar navbar-inverse">
+    <a class="navbar-brand" href="#">Chordpro Editor</a>
+  </div>
+  <div class="panel panel-default row">
+    <div class="col-xs-5">
+      <div class="well"
+        ng-repeat="item in data.songs  | filter: { _id: 1 } ">
+          <div ng-repeat="line in item.input">{{line}}</div>
+      </div>
+    </div>
+    <div class="col-xs-7">
+      <div class="well"
+        ng-repeat="item in data.songs  | filter: { _id: 1 } ">
+        <table width="100%">
+          <tr>
+            <td>
+              <h3>
+                <strong><a href="#">{{item.title}}</a></strong>
+              </h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>{{item.artist}}</span>
+            </td>
+          </tr>
+          <tr height="20"/>
+          <tr>
+            <td>
+              <div id="chordchart">
+                <table>
+                  <tr>
+                    <td ng-repeat="chorddef in item.chorddefs">
+                      <div id="{{chorddef.name}}" style="height: 50%" >
+                        <table>
+                          <tr>
+                            <td align="center">
+                              {{chorddef.name}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <svg width="55" height="40">
+                                <rect x="0" y="0" width="55" height="40" style="fill:rgb(0,0,0);stroke-width:2;stroke:rgb(255,0,0)" stroke-opacity="0.0" fill-opacity="0.0"/>
+                                <line x1="7" y1="6" x2="45" y2="6" style="stroke:rgb(0,0,0);stroke-width:3" />
+                                <line x1="7" y1="15" x2="45" y2="15" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <line x1="7" y1="22" x2="45" y2="22" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <line x1="7" y1="30" x2="45" y2="30" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <line x1="7" y1="37" x2="45" y2="37" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <line x1="7" y1="5" x2="7" y2="37" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <line x1="15" y1="5" x2="15" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
+                                <line x1="22" y1="5" x2="22" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
+                                <line x1="30" y1="5" x2="30" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
+                                <line x1="37" y1="5" x2="37" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
+                                <line x1="45" y1="5" x2="45" y2="37" style="stroke:rgb(0,0,0);stroke-width:.5" />
+                                <circle ng-repeat="coordinate in chorddef.positions" cx="{{coordinate.cx}}" cy="{{coordinate.cy}}" r="2" stroke="black" stroke-width="1.5" fill="black"/>
+                              </svg>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+          <tr height="20"/>
+        </table>
+        <svg width="700" height="900">
+        <text x = "10" y = "45" font-size = "20" font-family="Courier">
+          <tspan ng-repeat="line in item.lyrics" x="5" y="{{($index+1)*40}}">{{line}}</tspan>
+        </text>
+          <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
+          <tspan ng-repeat="chord in item.chords" x="{{chord.col*12+5}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
+          </text>
+        </svg>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
