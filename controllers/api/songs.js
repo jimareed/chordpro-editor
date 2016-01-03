@@ -4,7 +4,8 @@ var fretboard = require('../../lib/fretboard');
 var router = require('express').Router();
 
 router.get('/',function(req,res,next) {
-  song = chordpro.fromString(
+
+  var text =
     "{t:Greensleeves}\n" +
     "{st:Traditional}\n" +
     "{define: Am base-fret 0 frets x 0 2 2 1 0}\n" +
@@ -15,12 +16,13 @@ router.get('/',function(req,res,next) {
     "[C]Greensleeves was [G]all my [Em]joy,\n" +
     "[Am]Greensleeves was [E]my delight\n" +
     "[C]Greensleeves was my [G]heart of [Em]gold,\n" +
-    "and [Am]who but my [E7]lady [Am]greensleeves.\n"
-  );
+    "and [Am]who but my [E7]lady [Am]greensleeves.\n";
+
+  song = chordpro.fromString(text);
 
   chords = chordpro.distinctChords(song);
   defs = chorddefs.getdefs(chords);
-//  song = chordpro.addDefs(song, defs);
+  song = chordpro.addDefs(song, defs);
 
   for (i = 0; i < song.chorddefs.length; i++) {
     song.chorddefs[i].positions = fretboard.getFingerPositions(song.chorddefs[i]);
@@ -39,6 +41,9 @@ router.get('/',function(req,res,next) {
     "[C]Greensleeves was my [G]heart of [Em]gold,",
     "and [Am]who but my [E7]lady [Am]greensleeves."
   ];
+
+  song.text = text;
+
   res.json(song);
 });
 
