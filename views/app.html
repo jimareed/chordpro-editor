@@ -5,13 +5,14 @@
   <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js'></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.min.css"/>
   <script src="controllers/app.js"></script>
 </head>
 <body ng-controller="controller">
-  <div class="navbar navbar-inverse">
+  <div ng-init="init()" class="navbar navbar-inverse">
     <a class="navbar-brand" href="#">Chordpro Editor</a>
   </div>
   <div class="panel panel-default row">
@@ -25,23 +26,24 @@
 
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Edit Song</h4>
-            </div>
-            <div ng-repeat="item in data.songs  | filter: { _id: 1 } " class="modal-body">
-              <textarea class="form-control" rows="20" cols="80" ng-model="item.text"></textarea>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button ng-click="updateSongText()" type="button" class="btn btn-default" data-dismiss="modal">Update</button>
-            </div>
+            <form>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Song</h4>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" rows="20" cols="80" ng-model="song.text"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button ng-click="updateSong()" type="button" class="btn btn-default" data-dismiss="modal">Update</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <div class="well"
-        ng-repeat="item in data.songs  | filter: { _id: 1 } ">
-          <div ng-repeat="line in item.input">{{line}}</div>
+      <div class="well">
+          <div ng-repeat="line in song.input">{{line}}</div>
           <table>
             <tr height="365"><td></td>
             </tr>
@@ -52,19 +54,18 @@
       </div>
     </div>
     <div class="col-xs-7">
-      <div class="well"
-        ng-repeat="item in data.songs  | filter: { _id: 1 } ">
+      <div class="well">
         <table width="100%">
           <tr>
             <td>
               <h3>
-                <strong><a href="#">{{item.title}}</a></strong>
+                <strong><a href="#">{{song.title}}</a></strong>
               </h3>
             </td>
           </tr>
           <tr>
             <td>
-              <span>{{item.artist}}</span>
+              <span>{{song.artist}}</span>
             </td>
           </tr>
           <tr height="20"/>
@@ -73,7 +74,7 @@
               <div id="chordchart">
                 <table>
                   <tr>
-                    <td ng-repeat="chorddef in item.chorddefs">
+                    <td ng-repeat="chorddef in song.chorddefs">
                         <div id="{{chorddef.name}}" style="height: 50%" >
                         <table>
                           <tr>
@@ -148,10 +149,10 @@
         </table>
         <svg width="500" height="400">
         <text x = "10" y = "45" font-size = "20" font-family="Courier">
-          <tspan ng-repeat="line in item.lyrics" x="5" y="{{($index+1)*40}}">{{line}}</tspan>
+          <tspan ng-repeat="line in song.lyrics" x="5" y="{{($index+1)*40}}">{{line}}</tspan>
         </text>
           <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
-          <tspan ng-repeat="chord in item.chords" x="{{chord.col*12+5}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
+          <tspan ng-repeat="chord in song.chords" x="{{chord.col*12+5}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
           </text>
         </svg>
       <div id="modelEditSongBody" class="modal fade" role="dialog">
@@ -164,10 +165,10 @@
               <div class="modal-body">
                 <svg width="500" height="400">
                 <text x = "10" y = "45" font-size = "20" font-family="Courier">
-                  <tspan ng-repeat="line in item.lyrics" x="5" y="{{($index+1)*40}}">{{line}}</tspan>
+                  <tspan ng-repeat="line in song.lyrics" x="5" y="{{($index+1)*40}}">{{line}}</tspan>
                 </text>
                   <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
-                  <tspan ng-repeat="chord in item.chords" x="{{chord.col*12+5}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
+                  <tspan ng-repeat="chord in song.chords" x="{{chord.col*12+5}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
                   </text>
                 </svg>
               </div>

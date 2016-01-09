@@ -1,42 +1,44 @@
-var app = angular.module("app", []);
+var app = angular.module("app", ['ngStorage']);
+
+var defaultSong = {text:
+  "{t:Song Title}\n" +
+  "{st:Artist Name}\n" +
+  "Verse 1:\n" +
+  "Copy [Am]paste a song in [C]ChordPro [E7]format.\n"
+};
 
 app.service('service', function($http){
   this.fetch = function() {
-    return $http.get('/api/songs')
+    return $http.get('/api/song')
   }
-  this.create = function(song) {
-    return $http.post('/api/songs',song)
+  this.update = function(songtext) {
+    return $http.post('/api/song',songtext)
   }
 });
 
-app.controller("controller", function($scope,service) {
+app.controller("controller", function($scope, $localStorage, service) {
 
-  $scope.data = {
-    songs: [
-      {
-        title: "", _id: 1, artist: "",
-        lyrics: [],
-        input: [],
-        chorddefs:[],
-        chords: []
+  $scope.init = function() {
+
+    service.fetch()
+    .success(function(song) {
+      if (song.text == '') {
+        service.update(defaultSong)
+        .success(function(song) {
+          $scope.song = song;
+        })
+      } else {
+        $scope.song = song;
+        $localStorage.song = song;
       }
-    ]
-  };
-
-  service.fetch()
-  .success(function(songs) {
-    $scope.data.songs[0].title = songs.title;
-    $scope.data.songs[0].artist = songs.artist;
-    $scope.data.songs[0].lyrics = songs.lyrics;
-    $scope.data.songs[0].chords = songs.chords;
-    $scope.data.songs[0].input = songs.input;
-    $scope.data.songs[0].chorddefs = songs.chorddefs;
-    $scope.data.songs[0].text = songs.text;
-  })
-
-  $scope.updateSongText = function() {
+    });
   }
 
+  $scope.updateSong = function() {
+    service.update({text:$scope.song.text})
+    .success(function(song) {
+      $scope.song = song;
+      $localStorage.song = song;
+    });
+  }
 });
-
-var chordpro = require('../lib/chordpro');
