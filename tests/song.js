@@ -1,7 +1,7 @@
 var should = require('chai').should();
 var request = require('supertest')('http://localhost:3000');
 
-describe('#post then get', function() {
+describe('#song', function() {
   it("should return title",function(done){
     //calling ADD api
     var test = request;

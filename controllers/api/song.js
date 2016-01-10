@@ -9,7 +9,8 @@ var song = {
         input: [],
         chorddefs:[],
         chords: [],
-        text: ""
+        text: "",
+        fretboard:[]
     };
 
 function setSong(newText) {
@@ -28,6 +29,7 @@ function setSong(newText) {
 
   song.input = input;
   song.text = newText;
+  song.fretboard = fretboard.getFretboard({frets:[-1,0,2,2,1,0]});
 
   return song;
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>Chordpro Editor</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.min.css"/>
+  <script src="controllers/app.js"></script>
+  <script>
+    function clickNote(element) {
+      angular.element(document.getElementById('ctrl')).scope().selectNote(element.id);
+    }
+  </script>
+</head>
+<body>
+  <div id="ctrl" ng-controller="controller">
+    <div ng-init="init()" class="navbar navbar-inverse">
+      <a class="navbar-brand" href="#">Chordpro Editor</a>
+    </div>
+    <div class="panel panel-default row">
+      <div class="col-xs-12">
+        <div class="well">
+          <h3>
+            <strong><a href="#">{{song.title}}</a></strong>
+          </h3>
+          <svg width="220" height="160">
+            <rect x="0" y="0" width="220" height="160" style="fill:rgb(0,0,0);stroke-width:8;stroke:rgb(255,0,0)" stroke-opacity="0.0" fill-opacity="0.0"/>
+            <line x1="28" y1="24" x2="180" y2="24" style="stroke:rgb(0,0,0);stroke-width:12" />
+            <line x1="28" y1="60" x2="180" y2="60" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <line x1="28" y1="88" x2="180" y2="88" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <line x1="28" y1="120" x2="180" y2="120" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <line x1="28" y1="148" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <line x1="28" y1="20" x2="28" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <line x1="60" y1="20" x2="60" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+            <line x1="88" y1="20" x2="88" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+            <line x1="120" y1="20" x2="120" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+            <line x1="148" y1="20" x2="148" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+            <line x1="180" y1="20" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+            <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.selected}}" fill-opacity="{{note.selected}}"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
