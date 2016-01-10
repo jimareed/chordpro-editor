@@ -56,7 +56,14 @@ app.controller("controller", function($scope, $localStorage, service) {
     });
   }
 
-  $scope.test = function(positionId) {
+  $scope.editChord = function(chordId) {
+    var ch = parseInt(chordId);
+    if (ch >= 0 && ch < $scope.song.chorddefs.length) {
+      service.updateFretboard($scope.song.chorddefs[ch])
+      .success(function(fb) {
+        $scope.fretboard = fb;
+      });
+    }
   }
 
   $scope.selectNote = function(positionId) {
