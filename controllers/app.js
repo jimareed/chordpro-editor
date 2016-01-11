@@ -14,6 +14,9 @@ app.service('service', function($http){
   this.updateSong = function(songtext) {
     return $http.post('/api/song',songtext)
   }
+  this.updateChord = function(chorddef) {
+    return $http.put('/api/song',chorddef)
+  }
 
   this.getFretboard = function() {
     return $http.get('/api/fretboard')
@@ -21,8 +24,8 @@ app.service('service', function($http){
   this.updateFretboard = function(chorddef) {
     return $http.post('/api/fretboard',chorddef)
   }
-  this.updateNote = function(note) {
-    return $http.put('/api/fretboard',note)
+  this.updatePositionId = function(positionId) {
+    return $http.put('/api/fretboard',positionId)
   }
 
 });
@@ -66,10 +69,17 @@ app.controller("controller", function($scope, $localStorage, service) {
     }
   }
 
-  $scope.selectNote = function(positionId) {
-    service.updateNote({note:positionId})
+  $scope.selectNote = function(posId) {
+    service.updatePositionId({positionId:posId})
     .success(function(fb) {
       $scope.fretboard = fb;
+    });
+  }
+
+  $scope.updateChord = function() {
+    service.updateChord({chorddef:[$scope.fretboard.chorddef]})
+    .success(function(song) {
+      $scope.song = song;
     });
   }
 

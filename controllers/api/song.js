@@ -19,7 +19,7 @@ function setSong(newText) {
 
   chords = chordpro.distinctChords(song);
   defs = chorddefs.getdefs(chords);
-  song = chordpro.addDefs(song, defs);
+  song = chordpro.addDefs(song, defs, { replace:false });
 
   for (i = 0; i < song.chorddefs.length; i++) {
     song.chorddefs[i].positions = fretboard.getFingerPositions(song.chorddefs[i]);
@@ -40,6 +40,11 @@ router.get('/',function(req,res,next) {
 
 router.post('/',function(req,res,next) {
 	res.status(201).json(setSong(req.body.text))
+});
+
+router.put('/',function(req,res,next) {
+  song = chordpro.addDefs(song, req.body.chorddef, { replace:true });
+	res.status(200).json(song);
 });
 
 module.exports = router

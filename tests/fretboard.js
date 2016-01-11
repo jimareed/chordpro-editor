@@ -26,7 +26,7 @@ describe('#fretboard', function() {
     var test = request;
     test
     .put('/api/fretboard')
-    .send({note:"16"})
+    .send({positionId:"16"})
     .end(function(){
       test
       .get('/api/fretboard').

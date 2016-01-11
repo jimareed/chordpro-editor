@@ -14,6 +14,11 @@
     function clickNote(element) {
       angular.element(document.getElementById('ctrl')).scope().selectNote(element.id);
     }
+    function update() {
+      angular.element(document.getElementById('ctrl')).scope().updateChord();
+      location.href = "/";
+    }
+
   </script>
 </head>
 <body>
@@ -42,6 +47,21 @@
             <line x1="180" y1="20" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
             <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.selected}}" fill-opacity="{{note.selected}}"/>
           </svg>
+          <table>
+            <tr>
+              <td width="30"/>
+              <td>
+                <a class="btn btn-default" href="/">
+                    Cancel
+                </a>
+              </td>
+              <td>
+                <a class="btn btn-default" onclick="update()">
+                    Update
+                </a>
+              </td>
+
+            </tr>
         </div>
       </div>
     </div>

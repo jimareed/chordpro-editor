@@ -15,7 +15,7 @@ router.post('/',function(req,res,next) {
 });
 
 router.put('/',function(req,res,next) {
-  fb = fretboard.selectNote(fb, req.body.note);
+  fb = fretboard.selectPositionId(fb, req.body.positionId);
 	res.status(200).json(fb);
 });
 
