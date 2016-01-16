@@ -13,9 +13,9 @@ describe('#fretboard', function() {
       .get('/api/fretboard').
       end(function(err,res){
         (err == null).should.be.true;
-        res.body.positions[9].selected.should.equal("0.05");
+        res.body.positions[9].selected.should.equal("0.0");
         res.body.positions[10].selected.should.equal("1.0");
-        res.body.positions[11].selected.should.equal("0.05");
+        res.body.positions[11].selected.should.equal("0.0");
         done();
       });
     });
