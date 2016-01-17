@@ -45,8 +45,12 @@
             <line x1="120" y1="20" x2="120" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
             <line x1="148" y1="20" x2="148" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
             <line x1="180" y1="20" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
-            <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.selected}}" fill-opacity="{{note.selected}}"/>
+            <!-- selected frets -->
+            <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.opacity}}" fill-opacity="{{note.opacity}}"/>
             <text ng-if="fretboard.chorddef.basefret != 0" x = "205" y = "50" font-size = "24" font-family="Courier" font-weight="bold">{{fretboard.chorddef.basefret}}</text>
+            <!-- x's -->
+            <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx-2)*4}}" y1="0" x2="{{(coordinate.cx+3)*4}}" y2="20" stroke="black" stroke-width="4"/>
+            <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx+3)*4}}" y1="0" x2="{{(coordinate.cx-2)*4}}" y2="20" stroke="black" stroke-width="4"/>
           </svg>
           <table>
             <tr>

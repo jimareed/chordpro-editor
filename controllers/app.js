@@ -52,6 +52,18 @@ app.controller("controller", function($scope, $localStorage, service) {
     });
   }
 
+  $scope.filterMutedStrings = function(note) {
+      return note.mute;
+  }
+
+  $scope.filterExcludeMutedStrings = function(note) {
+      return !note.mute;
+  }
+
+  $scope.filterBaseFretNotZero = function(chorddef) {
+      return chorddef.basefret != 0;
+  }
+
   $scope.updateSong = function() {
     service.updateSong({text:$scope.song.text})
     .success(function(song) {

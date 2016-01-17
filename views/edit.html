@@ -91,12 +91,11 @@
                                   <line x1="30" y1="5" x2="30" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
                                   <line x1="37" y1="5" x2="37" y2="37" style="stroke:rgb(0,0,0);stroke-width:.25" />
                                   <line x1="45" y1="5" x2="45" y2="37" style="stroke:rgb(0,0,0);stroke-width:.5" />
-                                  <!-- x's --> <!--
-                                  <line x1="5" y1="0" x2="10" y2="5" style="stroke:rgb(0,0,0);stroke-width:1" />
-                                  <line x1="10" y1="0" x2="5" y2="5" style="stroke:rgb(0,0,0);stroke-width:1" />
-                                  -->
+                                  <!-- x's -->
+                                  <line ng-repeat="coordinate in chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{coordinate.cx-2}}" y1="0" x2="{{coordinate.cx+3}}" y2="5" stroke="black" stroke-width="1"/>
+                                  <line ng-repeat="coordinate in chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{coordinate.cx+3}}" y1="0" x2="{{coordinate.cx-2}}" y2="5" stroke="black" stroke-width="1"/>
                                   <!-- selected frets -->
-                                  <circle ng-repeat="coordinate in chorddef.positions" cx="{{coordinate.cx}}" cy="{{coordinate.cy}}" r="2" stroke="black" stroke-width="1.5" fill="black"/>
+                                  <circle ng-repeat="coordinate in chorddef.positions | filter:search | filter:filterExcludeMutedStrings" cx="{{coordinate.cx}}" cy="{{coordinate.cy}}" r="2" stroke="black" stroke-width="1.5" fill="black" stroke-opacity="{{coordinate.opacity}}" fill-opacity="{{coordinate.opacity}}"/>
                                   <text ng-if="chorddef.basefret != 0" x = "50" y = "14" font-size = "10" font-family="Courier" font-weight="bold">{{chorddef.basefret}}</text>
                                 </svg>
                               </td>
