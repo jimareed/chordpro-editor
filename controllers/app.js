@@ -13,7 +13,7 @@ var defaultSong = {text:
 app.service('service', function($http){
 
   this.getSong = function(id) {
-    if (id == "") {
+    if (!id) {
       return $http.get('/api/song')
     } else {
       return $http.get('/api/song')
@@ -43,13 +43,14 @@ app.config(function($routeProvider) {
     $routeProvider
       .when('/', { controller:'controller' , templateUrl:'views/song.html'})
       .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
+      .when('/song/:id', { controller:'controller' , templateUrl:'views/song.html'})
 });
 
-app.controller("controller", function($scope, $localStorage, service) {
+app.controller("controller", function($scope, $localStorage, $routeParams, service) {
 
   $scope.init = function() {
 
-    service.getSong("56a3cab171dc1125d7e90b25")
+    service.getSong($routeParams.id)
     .success(function(song) {
       if (song.text == '') {
         service.updateSong(defaultSong)
