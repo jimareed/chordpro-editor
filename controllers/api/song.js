@@ -4,7 +4,7 @@ var fretboard = require('../../lib/fretboard');
 var router = require('express').Router();
 
 var song = {
-        title: "", _id: 1, artist: "",
+        title: "", _id: "", artist: "",
         lyrics: [],
         chorddefs:[],
         chords: [],

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>Chordpro Editor</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-responsive.min.css"/>
+  <script src="controllers/app.js"></script>
+  <script>
+    function selectChord(element) {
+      angular.element(document.getElementById('song')).scope().editChord(element.id);
+      location.href = "#/chord"
+    }
+    function clickNote(element) {
+      angular.element(document.getElementById('chord')).scope().selectNote(element.id);
+    }
+    function update() {
+      angular.element(document.getElementById('chord')).scope().updateChord();
+      location.href = "#/";
+    }
+  </script>
+</head>
+<body>
+  <div ng-view></div>
+</body>
+</html>

@@ -1,4 +1,7 @@
-var app = angular.module("app", ['ngStorage']);
+var app = angular.module("app", [
+  'ngStorage',
+  'ngRoute'
+]);
 
 var defaultSong = {text:
   "{t:Song Title}\n" +
@@ -8,9 +11,15 @@ var defaultSong = {text:
 };
 
 app.service('service', function($http){
-  this.getSong = function() {
-    return $http.get('/api/song')
+
+  this.getSong = function(id) {
+    if (id == "") {
+      return $http.get('/api/song')
+    } else {
+      return $http.get('/api/song')
+    }
   }
+
   this.updateSong = function(songtext) {
     return $http.post('/api/song',songtext)
   }
@@ -30,11 +39,17 @@ app.service('service', function($http){
 
 });
 
+app.config(function($routeProvider) {
+    $routeProvider
+      .when('/', { controller:'controller' , templateUrl:'views/song.html'})
+      .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
+});
+
 app.controller("controller", function($scope, $localStorage, service) {
 
   $scope.init = function() {
 
-    service.getSong()
+    service.getSong("56a3cab171dc1125d7e90b25")
     .success(function(song) {
       if (song.text == '') {
         service.updateSong(defaultSong)
