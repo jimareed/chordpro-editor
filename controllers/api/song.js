@@ -3,14 +3,6 @@ var chorddefs = require('../../lib/chorddefs');
 var fretboard = require('../../lib/fretboard');
 var router = require('express').Router();
 
-var song = {
-        title: "", _id: "", artist: "",
-        lyrics: [],
-        chorddefs:[],
-        chords: [],
-        text: ""
-    };
-
 var songs = [];
 
 function getId(paramId) {
@@ -23,7 +15,14 @@ function getId(paramId) {
   return i;
 }
 
-function setSong(newText) {
+function parseSong(newText) {
+  var song = {
+          title: "", _id: "", artist: "",
+          lyrics: [],
+          chorddefs:[],
+          chords: [],
+          text: ""
+      };
 
   song = chordpro.fromString(newText);
 
@@ -49,20 +48,26 @@ router.get('/:id',function(req,res,next) {
 });
 
 router.get('/',function(req,res,next) {
-  res.json(song);
+  res.json(songs);
 });
 
 router.post('/',function(req,res,next) {
-  setSong(req.body.text);
+  var song = parseSong(req.body.text);
   song._id = songs.length.toString();
   songs.push(song);
 	res.status(201).json(songs[songs.length-1]);
 });
 
-router.put('/',function(req,res,next) {
-  song = chordpro.addDefs(song, req.body.chorddef, { replace:true });
-  setSong(chordpro.toString(song));
-	res.status(200).json(song);
+router.put('/:id',function(req,res,next) {
+  id = getId(req.params.id);
+
+  if (id >= 0 && id < songs.length) {
+    var song = chordpro.addDefs(songs[id], req.body.chorddef, { replace:true });
+    song = parseSong(chordpro.toString(song));
+    song._id = id.toString();
+    songs[id] = song;
+  	res.status(200).json(song);
+  }
 });
 
 module.exports = router

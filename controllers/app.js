@@ -13,18 +13,22 @@ var defaultSong = {text:
 app.service('service', function($http){
 
   this.getSong = function(id) {
-    if (!id) {
-      return $http.get('/api/song')
+    if (!id || id == "") {
+      return $http.post('/api/song', defaultSong)
     } else {
-      return $http.get('/api/song')
+      return $http.get('/api/song/' + id)
     }
+  }
+
+  this.getSongs = function() {
+    return $http.get('/api/song')
   }
 
   this.updateSong = function(songtext) {
     return $http.post('/api/song',songtext)
   }
-  this.updateChord = function(chorddef) {
-    return $http.put('/api/song',chorddef)
+  this.updateChord = function(chorddef, id) {
+    return $http.put('/api/song/' + id,chorddef)
   }
 
   this.getFretboard = function() {
@@ -50,16 +54,20 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
 
   $scope.init = function() {
 
-    service.getSong($routeParams.id)
-    .success(function(song) {
-      if (song.text == '') {
-        service.updateSong(defaultSong)
-        .success(function(song) {
-          $scope.song = song;
-        })
-      } else {
-        $scope.song = song;
+    var id = $routeParams.id;
+
+    service.getSongs()
+    .success(function(songs) {
+      if (!id || id == "") {
+        if (songs != null && songs.length > 0) {
+          var length = songs.length - 1;
+          id = length.toString();
+        }
       }
+      service.getSong(id)
+      .success(function(song) {
+        $scope.song = song;
+      });
     });
 
     service.getFretboard()
@@ -105,7 +113,7 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
   }
 
   $scope.updateChord = function() {
-    service.updateChord({chorddef:[$scope.fretboard.chorddef]})
+    service.updateChord({chorddef:[$scope.fretboard.chorddef]}, $scope.song._id)
     .success(function(song) {
       $scope.song = song;
     });
