@@ -5,14 +5,18 @@ var router = require('express').Router();
 
 var songs = [];
 
-function getId(paramId) {
+function getSong(paramId) {
   i = -1;
 
   if (paramId != null && !isNaN(paramId)) {
     i = parseInt(paramId);
   }
 
-  return i;
+  if (i >= 0 && i < songs.length) {
+    return songs[i];
+  }
+
+  return null;
 }
 
 function parseSong(newText) {
@@ -40,10 +44,10 @@ function parseSong(newText) {
 }
 
 router.get('/:id',function(req,res,next) {
-  id = getId(req.params.id);
+  var song = getSong(req.params.id);
 
-  if (id >= 0 && id < songs.length) {
-    res.json(songs[id]);
+  if (song != null) {
+    res.json(song);
   }
 });
 
@@ -59,12 +63,13 @@ router.post('/',function(req,res,next) {
 });
 
 router.put('/:id',function(req,res,next) {
-  id = getId(req.params.id);
+  var song = getSong(req.params.id);
 
-  if (id >= 0 && id < songs.length) {
-    var song = chordpro.addDefs(songs[id], req.body.chorddef, { replace:true });
+  if (song != null) {
+    var id = parseInt(song._id);
+    song = chordpro.addDefs(song, req.body.chorddef, { replace:true });
     song = parseSong(chordpro.toString(song));
-    song._id = id.toString();
+    song._id = req.params.id;
     songs[id] = song;
   	res.status(200).json(song);
   }
