@@ -11,6 +11,18 @@ var song = {
         text: ""
     };
 
+var songs = [];
+
+function getId(paramId) {
+  i = -1;
+
+  if (paramId != null && !isNaN(paramId)) {
+    i = parseInt(paramId);
+  }
+
+  return i;
+}
+
 function setSong(newText) {
 
   song = chordpro.fromString(newText);
@@ -28,12 +40,23 @@ function setSong(newText) {
   return song;
 }
 
+router.get('/:id',function(req,res,next) {
+  id = getId(req.params.id);
+
+  if (id >= 0 && id < songs.length) {
+    res.json(songs[id]);
+  }
+});
+
 router.get('/',function(req,res,next) {
   res.json(song);
 });
 
 router.post('/',function(req,res,next) {
-	res.status(201).json(setSong(req.body.text))
+  setSong(req.body.text);
+  song._id = songs.length.toString();
+  songs.push(song);
+	res.status(201).json(songs[songs.length-1]);
 });
 
 router.put('/',function(req,res,next) {

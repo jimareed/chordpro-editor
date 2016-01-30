@@ -88,6 +88,28 @@ describe('#song', function() {
     })
   });
 
+  it("should get songs by id",function(done){
+    //calling ADD api
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      "{t:Greensleeves}\n" +
+      "{st:Traditional}\n"
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .get('/api/song/' + id)
+      .end(function(err,res){
+        (err == null).should.be.true;
+        res.body.title.should.equal('Greensleeves');
+        done();
+      });
+    });
+  });
+
   it("should do something awesome",function(done){
     //calling ADD api
     var test = request;
@@ -109,5 +131,6 @@ describe('#song', function() {
       })
     })
   });
+
 
 });
