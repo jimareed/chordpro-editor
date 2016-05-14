@@ -7,7 +7,7 @@ var defaultSong = {text:
   "{t:Song Title}\n" +
   "{st:Artist Name}\n" +
   "Verse 1:\n" +
-  "Click on the pencil and then copy [Am]paste a song in [C]ChordPro [E]format.\n"
+  "Click on the pencil and then copy [Am]paste a song in [C]ChordPro [E]format.\n" +
   "Click on [Am]a chord [C]to change it's [E7]position.\n"
 };
 
