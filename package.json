@@ -5,6 +5,9 @@
     "express": "^4.13.3",
     "mocha": "*",
     "chai": "*",
-    "supertest": "*"
+    "supertest": "*",
+    "winston": "*",
+    "winston-logstash":"*",
+    "commander":"*"
   }
 }

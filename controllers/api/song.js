@@ -3,6 +3,17 @@ var chorddefs = require('../../lib/chorddefs');
 var fretboard = require('../../lib/fretboard');
 var songdb = require('../../lib/songdb');
 var router = require('express').Router();
+var winston = require('winston');
+
+var logger = new (winston.Logger)({
+    transports: [
+       new (winston.transports.File)({
+           name: 'info-file',
+           filename: 'server.log',
+           level: 'info'
+           })
+    ]
+});
 
 var songs = [];
 
@@ -42,6 +53,7 @@ function parseSong(newText) {
 }
 
 router.get('/:id',function(req,res,next) {
+
   var song = getSong(req.params.id);
 
   if (song == null) {
@@ -56,6 +68,9 @@ router.get('/:id',function(req,res,next) {
   if (song != null) {
     res.json(song);
   }
+
+  logger.info("get" , { title: song.title });
+
 });
 
 router.get('/',function(req,res,next) {
@@ -80,6 +95,9 @@ router.put('/:id',function(req,res,next) {
     song._id = req.params.id;
     songs[id] = song;
     songdb.update(song._id,song.title,song.artist,song.text);
+
+    logger.info("put" , { title: song.title });
+
   	res.status(200).json(song);
   }
 });
