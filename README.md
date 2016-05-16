@@ -21,4 +21,5 @@ git clone https://github.com/jimareed/<nodejs project>
 cd <nodejs project>
 npm install
 forever start -o out.log server.js
+forever stop server.js
 ```
