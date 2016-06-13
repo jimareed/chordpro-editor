@@ -81,7 +81,7 @@ router.post('/',function(req,res,next) {
   var song = parseSong(req.body.text);
   song._id = songs.length.toString();
   songs.push(song);
-  songdb.add(song.title, song.artist, song.text);
+  songdb.add("", song.title, song.artist, song.text);
 	res.status(201).json(songs[songs.length-1]);
 });
 

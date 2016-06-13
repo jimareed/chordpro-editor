@@ -172,7 +172,7 @@ describe('#song', function() {
       test
       .get('/api/song/' + id)
       .end(function(err,res) {
-        res.body.chorddefs.length.should.equal(5);
+        res.body.chorddefs.length.should.equal(4);
         done();
       })
     })

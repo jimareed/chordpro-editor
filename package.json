@@ -8,6 +8,7 @@
     "supertest": "*",
     "winston": "*",
     "winston-logstash":"*",
-    "commander":"*"
+    "commander":"*",
+    "mongoose": "^4.2.7"    
   }
 }

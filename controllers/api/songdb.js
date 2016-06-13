@@ -1,49 +1,42 @@
-var router = require('express').Router();
+var Song = require('../../models/song')
+var router = require('express').Router()
 
-var songs = [];
+router.get('/',function(req,res,next) {
+   Song.find()
+    .sort('-date')
+    .exec(function(err,songs){
+     if(err) { return next(err)}
+     res.json(songs)
+   })
+})
 
-function getId(paramId) {
-  i = -1;
+router.get('/:id', function(req, res, next) {
+    Song.findById(req.params.id, function(err, song) {
+        if (err) {
+            console.error(err);
+            return next(err);
+        }
 
-  if (paramId != null && !isNaN(paramId)) {
-    i = parseInt(paramId);
-  }
+        if (!song) {
+            return res.status(404).send();
+        }
 
-  return i;
-}
-
-router.get('/:id',function(req,res,next) {
-
-  id = getId(req.params.id);
-
-  if (id >= 0 && id < songs.length) {
-    res.json(songs[id]);
-  }
+        res.status(200).send(song);
+    });
 });
 
-router.post('/',function(req,res,next) {
-  var song = { title: "", _id: "0", artist: "", text: "" };
 
-  song.text = req.body.text;
-  song.title = req.body.title;
-  song.artist = req.body.artist;
-  song._id = songs.length.toString();
-
-  songs.push(song);
-
-	res.status(201).json(song)
-});
-
-router.put('/:id',function(req,res,next) {
-  id = getId(req.params.id);
-
-  if (id >= 0 && id < songs.length) {
-    songs[id].text = req.body.text;
-    songs[id].title = req.body.title;
-    songs[id].artist = req.body.artist;
-
-    res.status(200).json(songs[id]);
-  }
-});
+router.post('/',function(req,res,next){
+  var song = new Song( {
+	   username:req.body.username,
+     title: req.body.title,
+     artist: req.body.artist,
+     text: req.body.text
+  })
+  song.save(function(err,song) {
+    if (err) { return next(err) }
+	  res.status(201).json(song)
+  })
+})
 
 module.exports = router
