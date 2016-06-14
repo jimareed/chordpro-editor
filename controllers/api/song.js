@@ -4,6 +4,7 @@ var fretboard = require('../../lib/fretboard');
 var songdb = require('../../lib/songdb');
 var router = require('express').Router();
 var winston = require('winston');
+var Song = require('../../models/song')
 
 var logger = new (winston.Logger)({
     transports: [
@@ -53,24 +54,25 @@ function parseSong(newText) {
 }
 
 router.get('/:id',function(req,res,next) {
-
   var song = getSong(req.params.id);
 
   if (song == null) {
-    var fromdb = songdb.get(req.params.id);
-
-    if (fromdb != null) {
-      song = parseSong(fromdb.text);
-      songs.push(song);
-    }
-  }
-
-  if (song != null) {
+    Song.findById(req.params.id, function(err, dbSong) {
+      if (err) {
+          console.error(err);
+          return next(err);
+      }
+      if (dbSong != null && dbSong.text != null) {
+        song = parseSong(dbSong.text);
+        songs.push(song);
+        res.json(song);
+        logger.info("get" , { title: song.title });
+      }
+    });
+  } else {
     res.json(song);
+    logger.info("get" , { title: song.title });
   }
-
-  logger.info("get" , { title: song.title });
-
 });
 
 router.get('/',function(req,res,next) {

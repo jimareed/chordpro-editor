@@ -23,7 +23,13 @@ describe('#songdb', function() {
     var test = request;
     test
     .post('/api/songdb')
-    .send({username:"testuser" ,  title:"the song" , artist:"the artist" , text:"{t:the song}" })
+    .send({username:"testuser" ,  title:"the song" , artist:"the artist" ,
+      text:
+        "{t:the song}\n" +
+        "{st:the artist}\n" +
+        "A[Am]las, my [C]love, you [G]do me [Em]wrong,\n" +
+        "to [Am]cast me off disc[E]ourteously.\n"
+    })
     .end(function(err,res){
       (err == null).should.be.true;
       id = res.body._id;
