@@ -39,4 +39,27 @@ router.post('/',function(req,res,next){
   })
 })
 
+router.put('/:id',function(req,res,next) {
+  Song.findById(req.params.id, function(err, song) {
+      if (err) {
+          console.error(err);
+          return next(err);
+      }
+
+      if (!song) {
+          return res.status(404).send();
+      }
+
+      song.username = req.body.username;
+      song.title = req.body.title;
+      song.artist = req.body.artist;
+      song.text = req.body.text;
+
+      song.save(function(err,song) {
+        if (err) { return next(err) }
+    	  res.status(200).json(song)
+      })
+  });
+});
+
 module.exports = router

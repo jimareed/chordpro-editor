@@ -43,7 +43,6 @@ describe('#songdb', function() {
     });
   });
 
-/*
   it("should update the song",function(done){
     //calling ADD api
     var test = request;
@@ -68,6 +67,5 @@ describe('#songdb', function() {
       });
     });
   });
-*/
 
 });

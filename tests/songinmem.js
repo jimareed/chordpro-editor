@@ -48,4 +48,30 @@ describe('#songinmem', function() {
     });
   });
 
+  it("should update a song",function(done){
+    var song = new Song({
+  	   username:"guest2",
+       title: "title2",
+       artist: "artist2",
+       text: "{t:title2}"
+    })
+    song.save(function(err,theSong) {
+      should.exist(theSong._id);
+      theSong.findById(theSong._id, function(err2, theSong2) {
+        should.not.exist(err2);
+        theSong2.title.should.equal("title2");
+        theSong2.title = "title3";
+        theSong2.save(function(err,theSong) {
+          should.exist(theSong._id);
+          theSong.findById(theSong._id, function(err2, theSong2) {
+            should.not.exist(err2);
+            theSong2.title.should.equal("title3");
+            done();
+          });
+        });
+      });
+    });
+  });
+
+
 });
