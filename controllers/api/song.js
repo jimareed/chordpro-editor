@@ -1,10 +1,10 @@
 var chordpro = require('../../lib/chordpro');
 var chorddefs = require('../../lib/chorddefs');
 var fretboard = require('../../lib/fretboard');
-var songdb = require('../../lib/songdb');
 var router = require('express').Router();
 var winston = require('winston');
-var Song = require('../../models/song')
+//var Song = require('../../models/song')
+var Song = require('../../lib/songinmem');
 
 var logger = new (winston.Logger)({
     transports: [
@@ -83,7 +83,6 @@ router.post('/',function(req,res,next) {
   var song = parseSong(req.body.text);
   song._id = songs.length.toString();
   songs.push(song);
-  songdb.add("", song.title, song.artist, song.text);
 	res.status(201).json(songs[songs.length-1]);
 });
 
@@ -96,7 +95,6 @@ router.put('/:id',function(req,res,next) {
     song = parseSong(chordpro.toString(song));
     song._id = req.params.id;
     songs[id] = song;
-    songdb.update(song._id,song.title,song.artist,song.text);
 
     logger.info("put" , { title: song.title });
 
