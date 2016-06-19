@@ -3,12 +3,13 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "express-session": "*",
     "mocha": "*",
     "chai": "*",
     "supertest": "*",
     "winston": "*",
     "winston-logstash":"*",
     "commander":"*",
-    "mongoose": "^4.2.7"    
+    "mongoose": "^4.2.7"
   }
 }

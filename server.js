@@ -1,4 +1,5 @@
 var express = require('express')
+var session = require('express-session');
 var bodyParser = require('body-parser')
 var config = require('commander')
 
@@ -9,6 +10,13 @@ config
 
 var app = express()
 app.use(bodyParser.json())
+
+var sessionOptions = {
+  secret: "secret",
+  resave : true,
+  saveUninitialized : true
+};
+app.use(session(sessionOptions));
 
 app.use('/api/song', require('./controllers/api/song'))
 app.use('/api/songdb', require('./controllers/api/songdb'))
