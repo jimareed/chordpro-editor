@@ -1,6 +1,7 @@
 var chordpro = require('../../lib/chordpro');
 var chorddefs = require('../../lib/chorddefs');
 var fretboard = require('../../lib/fretboard');
+var text2chordpro = require('../../lib/text2chordpro');
 var router = require('express').Router();
 var winston = require('winston');
 //var Song = require('../../models/song')
@@ -37,6 +38,10 @@ function parseSong(newText) {
           chords: [],
           text: ""
       };
+
+  if (!text2chordpro.isChordpro(newText)) {
+    newText = text2chordpro.fromText(newText);
+  }
 
   song = chordpro.fromString(newText);
 
