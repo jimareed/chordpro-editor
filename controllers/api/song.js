@@ -49,6 +49,8 @@ function parseSong(newText) {
   defs = chorddefs.getdefs(chords);
   song = chordpro.addDefs(song, defs, { replace:false });
 
+  console.log(song.lyrics);
+
   for (s = 0; s < song.chorddefs.length; s++) {
     song.chorddefs[s].positions = fretboard.getFingerPositions(song.chorddefs[s]);
   }
@@ -96,8 +98,16 @@ router.put('/:id',function(req,res,next) {
 
   if (song != null) {
     var id = parseInt(song._id);
-    song = chordpro.addDefs(song, req.body.chorddef, { replace:true });
-    song = parseSong(chordpro.toString(song));
+
+    if ( req.body.hasOwnProperty('chorddef') ) {
+      song = chordpro.addDefs(song, req.body.chorddef, { replace:true });
+      song = parseSong(chordpro.toString(song));
+    }
+
+    if ( req.body.hasOwnProperty('text') ) {
+      song = parseSong(req.body.text);
+    }
+
     song._id = req.params.id;
     songs[id] = song;
 

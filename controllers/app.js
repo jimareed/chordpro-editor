@@ -25,11 +25,12 @@ app.service('service', function($http){
     return $http.get('/api/song')
   }
 
-  this.updateSong = function(songtext) {
-    return $http.post('/api/song',songtext)
+  this.updateSong = function(songtext, id) {
+    return $http.put('/api/song/' + id, songtext)
   }
+
   this.updateChord = function(chorddef, id) {
-    return $http.put('/api/song/' + id,chorddef)
+    return $http.put('/api/song/' + id, chorddef)
   }
 
   this.renameChord = function(name, id, chordid) {
@@ -95,7 +96,7 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
   }
 
   $scope.updateSong = function() {
-    service.updateSong({text:$scope.song.text})
+    service.updateSong({text:$scope.song.text}, $scope.song._id)
     .success(function(song) {
       $scope.song = song;
     });

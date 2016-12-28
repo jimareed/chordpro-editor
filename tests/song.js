@@ -66,6 +66,43 @@ describe('#song', function() {
     });
   });
 
+  it("should return lyrics of a larger song",function(done){
+    //calling ADD api
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      "{t:Have Yourself A Merry Little Christmas}\n" +
+      "{st:Frank Sinatra}\n" +
+      "[G]Have your[Em]self a[Am] merry littl[D7]e Christmas\n" +
+      "[G]Let your [Em]heart be[Am] ligh[D7]t\n" +
+      "[G]From now [Em]on, our[Am] troubles will b[D7]e out [B7]of s[E7]igh[A7]t  [D7]\n" +
+      "[G]Have your[Em]self a[Am] merry littl[D7]e Christmas\n" +
+      "[G]Make the [Em]Yuletide[Am] ga[D7]y\n" +
+      "[G]From now [Em]on, our[Am] troubles will b[B7]e mil[Em]es away   [G]\n" +
+      "[C]Here were are as in [Bm]olden days\n" +
+      "[Am]happy gold[D7]en [Gmaj7]days of yore\n" +
+      "[Em]Faithful[F#7] friends who ar[Bm]e dear to us\n" +
+      "[D]gather nea[Em]r to us[Am]  o[D7]nce more\n" +
+      "[G]Through the [Em]years we[Am] all will b[D7]e together\n" +
+      "[G]If the [Em]Fates a[Am]llo[D7]w\n" +
+      "[G]Hang a [Em]shining[Am] star upon th[D7]e highe[Em]st bough\n" +
+      "[C]And have yoursel[Am]f a merry li[D7]ttle Chri[G]stmas now.\n"
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .get('/api/song/' + id)
+      .end(function(err,res){
+        (err == null).should.be.true;
+        res.body.lyrics[0].should.equal('Have yourself a merry little Christmas');
+        res.body.lyrics.length.should.equal(14);
+        done();
+      });
+    });
+  });
+
   it("should update chord defs",function(done){
     //calling ADD api
     var test = request;
