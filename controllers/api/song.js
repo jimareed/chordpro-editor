@@ -107,4 +107,21 @@ router.put('/:id',function(req,res,next) {
   }
 });
 
+router.put('/:id/chords/:chordid',function(req,res,next) {
+  var song = getSong(req.params.id);
+
+  if (song != null) {
+    var id = parseInt(song._id);
+    if (req.params.chordid >= 0 && req.params.chordid < song.chords.length) {
+      song = chordpro.renameChord(song, song.chords[req.params.chordid].name, req.body.name);
+      song._id = req.params.id;
+      songs[id] = song;
+    }
+
+    logger.info("put chords" , { name: req.body.name });
+
+  	res.status(200).json(song);
+  }
+});
+
 module.exports = router

@@ -32,6 +32,10 @@ app.service('service', function($http){
     return $http.put('/api/song/' + id,chorddef)
   }
 
+  this.renameChord = function(name, id, chordid) {
+    return $http.put('/api/song/' + id + '/chords/' + chordid, name)
+  }
+
   this.getFretboard = function() {
     return $http.get('/api/fretboard')
   }
@@ -74,6 +78,7 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     service.getFretboard()
     .success(function(fb) {
       $scope.fretboard = fb;
+      $scope.newchordname = fb.chorddef.name;
     });
   }
 
@@ -118,6 +123,18 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     .success(function(song) {
       $scope.song = song;
     });
+  }
+
+  $scope.renameChord = function() {
+    for (chordid = 0; chordid < $scope.song.chords.length; chordid++) {
+      if ($scope.newchordname != "" && $scope.song.chords[chordid].name == $scope.fretboard.chorddef.name) {
+        service.renameChord({name:$scope.newchordname}, $scope.song._id, chordid)
+        .success(function(song) {
+          $scope.song = song;
+          $scope.fretboard.chorddef.name = $scope.newchordname;
+        });
+      }
+    }
   }
 
 });

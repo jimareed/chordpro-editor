@@ -154,6 +154,36 @@ describe('#song', function() {
     })
   });
 
+  it("should rename a chord",function(done){
+    //calling ADD api
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      "{t:Greensleeves}\n" +
+      "{st:Traditional}\n" +
+      "{define: Am base-fret 0 frets x 0 2 2 1 0}\n" +
+      "A[Am]las, my [C]love, you [G]do me [Em]wrong,\n"
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .put('/api/song/' + id + "/chords/0")
+      .send({ name:"Am7" })
+      .end(function(){
+        test
+        .get('/api/song/' + id)
+        .end(function(err,res) {
+          res.body.chorddefs.length.should.equal(4);
+          res.body.chorddefs[0].name.should.equal("Am7");
+          done();
+        })
+      })
+    })
+  });
+
+
   it("should end test with instructions",function(done){
     //calling ADD api
     var test = request;
