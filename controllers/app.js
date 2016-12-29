@@ -37,6 +37,11 @@ app.service('service', function($http){
     return $http.put('/api/song/' + id + '/chords/' + chordid, name)
   }
 
+  this.getSection = function(name, id, sectionid) {
+    return $http.get('/api/song/' + id + '/sections/' + sectionid)
+  }
+
+
   this.getFretboard = function() {
     return $http.get('/api/fretboard')
   }
@@ -53,6 +58,7 @@ app.config(function($routeProvider) {
     $routeProvider
       .when('/', { controller:'controller' , templateUrl:'views/song.html'})
       .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
+      .when('/section', { controller:'controller' , templateUrl:'views/section.html'})
       .when('/song/:id', { controller:'controller' , templateUrl:'views/song.html'})
 });
 
@@ -108,6 +114,18 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
       service.updateFretboard($scope.song.chorddefs[ch])
       .success(function(fb) {
         $scope.fretboard = fb;
+      });
+    }
+  }
+
+  $scope.editSection = function(sectionid) {
+    var id = parseInt(sectionid);
+    console.log("id=" + sectionid);
+    if (id >= 0 && id < $scope.song.chorddefs.length) {
+      service.getSection(id)
+      .success(function(section) {
+        $scope.section = section;
+        console.log("section=" + section.title);
       });
     }
   }

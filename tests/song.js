@@ -220,6 +220,31 @@ describe('#song', function() {
     })
   });
 
+  it("should get a section",function(done){
+    //calling ADD api
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      "{t:Song Title}\n" +
+      "{st:Artist Name}\n" +
+      "Verse 1\n" +
+      "Click on [Am]the pencil to [C]copy/paste a [E]song in [Am]ChordPro format.\n" +
+      "[C]Click on a [C]chord [E7]to edit it.\n"
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .get('/api/song/' + id + "/sections/0")
+      .send()
+      .end(function(err,res){
+        res.body.title.should.equal("Verse 1");
+        done();
+      })
+    })
+  });
+
 
   it("should end test with instructions",function(done){
     //calling ADD api
