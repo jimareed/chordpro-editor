@@ -6,7 +6,7 @@ var app = angular.module("app", [
 var defaultSong = {text:
   "{t:Song Title}\n" +
   "{st:Artist Name}\n" +
-  "Verse 1:\n" +
+  "Verse 1\n" +
   "Click on [Am]the pencil to [C]copy/paste a [E]song\n" +
   "in [Am]ChordPro format. [C]Click on a [C]chord [E7]to edit it.\n"
 };
@@ -37,10 +37,9 @@ app.service('service', function($http){
     return $http.put('/api/song/' + id + '/chords/' + chordid, name)
   }
 
-  this.getSection = function(name, id, sectionid) {
+  this.getSection = function(id, sectionid) {
     return $http.get('/api/song/' + id + '/sections/' + sectionid)
   }
-
 
   this.getFretboard = function() {
     return $http.get('/api/fretboard')
@@ -58,7 +57,7 @@ app.config(function($routeProvider) {
     $routeProvider
       .when('/', { controller:'controller' , templateUrl:'views/song.html'})
       .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
-      .when('/section', { controller:'controller' , templateUrl:'views/section.html'})
+      .when('/songs/:id/sections/:sectionid', { controller:'controller' , templateUrl:'views/section.html'})
       .when('/song/:id', { controller:'controller' , templateUrl:'views/song.html'})
 });
 
@@ -86,6 +85,17 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     .success(function(fb) {
       $scope.fretboard = fb;
       $scope.newchordname = fb.chorddef.name;
+    });
+  }
+
+  $scope.initSection = function() {
+
+    var id = $routeParams.id;
+    var sectionid = $routeParams.sectionid;
+
+    service.getSection(id, sectionid)
+    .success(function(section) {
+      $scope.section = section;
     });
   }
 
@@ -119,13 +129,10 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
   }
 
   $scope.editSection = function(sectionid) {
-    var id = parseInt(sectionid);
-    console.log("id=" + sectionid);
     if (id >= 0 && id < $scope.song.chorddefs.length) {
-      service.getSection(id)
+      service.getSection($scope.song._id, sectionid)
       .success(function(section) {
         $scope.section = section;
-        console.log("section=" + section.title);
       });
     }
   }

@@ -100,7 +100,7 @@
           <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
             <tspan ng-repeat="section in song.sections track by $index" x="5" y="{{(section.start+1)*40}}" ">{{section.text}}</tspan>
           </text>
-          <rect ng-repeat="section in song.sections track by $index" id="{{$index}}" x="0" y="{{(section.start+1)*40}}" width="900" height="{{(section.end+1)*40}}" style="fill:rgb(0,0,0);stroke-width:{{$index}};stroke:rgb(0,0,0)" stroke-opacity="0.0" fill-opacity="0.0" onclick="selectSection(this)"/>
+          <rect ng-repeat="section in song.sections track by $index" id="s-{{$index}}" x="0" y="{{(section.start+1)*40}}" width="900" height="{{(section.end+1)*40}}" style="fill:rgb(0,0,0);stroke-width:{{$index}};stroke:rgb(0,0,0)" stroke-opacity="0.0" fill-opacity="0.0" onclick="selectSection({{song._id}}, this)"/>
         </svg>
     </div>
   </div>

@@ -134,12 +134,10 @@ router.put('/:id/chords/:chordid',function(req,res,next) {
 
 router.get('/:id/sections/:sectionid',function(req,res,next) {
   var song = getSong(req.params.id);
-  var section = { title:"test" , chords:[] , lyrics:[] };
+  var section = { title:"" , chords:[] , lyrics:[] };
 
   if (song != null) {
-    if (req.params.sectionid >= 0 && req.params.sectionid < song.sections.length) {
-      section = chordpro.getSection(song, req.params.sectionid);
-    }
+    section = chordpro.getSection(song, req.params.sectionid);
   }
 
   logger.info("get sections" , { id: req.params.sectionid });

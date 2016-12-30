@@ -16,9 +16,9 @@
       angular.element(document.getElementById('song')).scope().editChord(element.id);
       location.href = "#/chord"
     }
-    function selectSection(element) {
-      angular.element(document.getElementById('song')).scope().editSection(element.id);
-      location.href = "#/section"
+    function selectSection(id, element) {
+      var secid = element.id.substring(2, element.id.length);
+      location.href = "#/songs/"+id+"/sections/" + secid;
     }
     function clickNote(element) {
       angular.element(document.getElementById('chord')).scope().selectNote(element.id);
