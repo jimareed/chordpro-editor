@@ -58,7 +58,7 @@ app.config(function($routeProvider) {
       .when('/', { controller:'controller' , templateUrl:'views/song.html'})
       .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
       .when('/songs/:id/sections/:sectionid', { controller:'controller' , templateUrl:'views/section.html'})
-      .when('/song/:id', { controller:'controller' , templateUrl:'views/song.html'})
+      .when('/songs/:id', { controller:'controller' , templateUrl:'views/song.html'})
 });
 
 app.controller("controller", function($scope, $localStorage, $routeParams, service) {

@@ -254,7 +254,7 @@ describe('#song', function() {
     .send({text :
       "{t:Song Title}\n" +
       "{st:Artist Name}\n" +
-      "Verse 1:\n" +
+      "Verse 1\n" +
       "Click on [Am]the pencil to [C]copy/paste a [E]song in [Am]ChordPro format.\n" +
       "[C]Click on a [C]chord [E7]to edit it.\n"
     })
