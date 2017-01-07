@@ -15,14 +15,20 @@
           </tr>
           <tr height="20"/>
         </table>
-        <svg width="900" height="{{section.lyrics.length*40+50}}">
-          <text x = "10" y = "45" font-size = "20" font-family="Courier">
-            <tspan ng-repeat="line in section.lyrics track by $index" x="20" y="{{($index+1)*40}}">{{line}}</tspan>
-          </text>
-          <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
-            <tspan ng-repeat="chord in section.chords" x="{{chord.col*12+20}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
-          </text>
-        </svg>
+        <table width="100%">
+          <tr>
+            <td align="center">
+              <svg width="800" height="{{section.lyrics.length*40+50}}">
+                <text x = "10" y = "45" font-size = "20" font-family="Courier">
+                  <tspan ng-repeat="line in section.lyrics track by $index" x="20" y="{{($index+1)*40}}">{{line}}</tspan>
+                </text>
+                <text x = "10" y = "45" font-size = "20" font-family="Courier" fill="blue" font-weight="bold">
+                  <tspan ng-repeat="chord in section.chords" x="{{chord.col*12+20}}" y="{{(chord.line+1)*40-20}}">{{chord.name}}</tspan>
+                </text>
+              </svg>
+            </td>
+          </tr>
+        </table>
     </div>
   </div>
 </div>
