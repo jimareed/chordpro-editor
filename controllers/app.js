@@ -96,7 +96,15 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     service.getSection(id, sectionid)
     .success(function(section) {
       $scope.section = section;
+      $scope.from = { row:0 , col:9 };
+      $scope.to = { row:0 , col:10 };
     });
+  }
+
+  $scope.changeSectionChord = function() {
+
+    $scope.from = { row:0 , col:23 };
+    $scope.to = { row:0 , col:24 };
   }
 
   $scope.filterMutedStrings = function(note) {

@@ -17,14 +17,13 @@ verify setup
 
 ## install project
 
-{project}=chordpro-editor
 ```
 curl -sL https://rpm.nodesource.com/setup | bash -
 yum install -y nodejs
 npm install forever -g
 cd /opt
-git clone https://github.com/jimareed/{project}
-cd {project}
+git clone https://github.com/jimareed/chordpro-editor
+cd chordpro-editor
 npm install
 ```
 ## configure mongo
@@ -48,10 +47,16 @@ cd /opt/{project}
 ./node_modules/.bin/mocha tests
 ```
 
+## install docker
+```
+sudo yum install -y docker
+sudo service docker start
+```
+
 ## build and run
 ```
-docker build . -t chordpro-editor-image
-docker run -p 80:80 -d --name chordpro-editor chordpro-editor-image
+docker build -t chordpro-editor-image .
+docker run -p 3000:3000 -d --name chordpro-editor chordpro-editor-image
 ```
 
 ## cleanup
