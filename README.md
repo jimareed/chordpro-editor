@@ -47,3 +47,15 @@ forever stop server.js
 cd /opt/{project}
 ./node_modules/.bin/mocha tests
 ```
+
+## build and run
+```
+docker build . -t chordpro-editor-image
+docker run -p 80:80 -d --name chordpro-editor chordpro-editor-image
+```
+
+## cleanup
+```
+docker stop chordpro-editor
+docker rm chordpro-editor
+```
