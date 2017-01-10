@@ -93,7 +93,7 @@
         <table width="100%">
           <tr>
             <td align="center">
-              <svg width="800" height="{{song.lyrics.length*40+50}}">
+              <svg width="900" height="{{song.lyrics.length*40+50}}">
                 <text x = "10" y = "45" font-size = "20" font-family="Courier">
                   <tspan ng-repeat="line in song.lyrics track by $index" x="100" y="{{($index+1)*40}}">{{line}}</tspan>
                 </text>

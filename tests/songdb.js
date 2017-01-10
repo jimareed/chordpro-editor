@@ -4,6 +4,7 @@ var chordpro = require('../lib/chordpro');
 
 describe('#songdb', function() {
 
+/*
   it("should return id when you add a song",function(done){
     //calling ADD api
     var test = request;
@@ -67,5 +68,5 @@ describe('#songdb', function() {
       });
     });
   });
-
+*/
 });

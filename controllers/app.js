@@ -97,14 +97,28 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     .success(function(section) {
       $scope.section = section;
       $scope.from = { row:0 , col:9 };
-      $scope.to = { row:0 , col:10 };
+      $scope.to = { row:0 , col:9 };
     });
   }
 
   $scope.changeSectionChord = function() {
 
     $scope.from = { row:0 , col:23 };
-    $scope.to = { row:0 , col:24 };
+    $scope.to = { row:0 , col:23 };
+  }
+
+  $scope.moveChordRight = function() {
+
+    $scope.to.col += 1;
+  }
+
+  $scope.moveChordLeft = function() {
+
+    $scope.to.col -= 1;
+  }
+
+  $scope.confirmMoveChord = function() {
+
   }
 
   $scope.filterMutedStrings = function(note) {
