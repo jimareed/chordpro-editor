@@ -121,7 +121,14 @@ router.put('/:id/chords/:chordid',function(req,res,next) {
   if (song != null) {
     var id = parseInt(song._id);
     if (req.params.chordid >= 0 && req.params.chordid < song.chords.length) {
-      song = chordpro.renameChord(song, song.chords[req.params.chordid].name, req.body.name);
+      if ( req.body.hasOwnProperty('name') ) {
+        song = chordpro.renameChord(song, song.chords[req.params.chordid].name, req.body.name);
+      }
+      if ( req.body.hasOwnProperty('col') ) {
+        var col = parseInt(req.body.col);
+        var to = { name:song.chords[req.params.chordid].name , line:song.chords[req.params.chordid].line , col:col };
+        song = chordpro.moveChord(song, song.chords[req.params.chordid], to);
+      }
       song._id = req.params.id;
       songs[id] = song;
     }

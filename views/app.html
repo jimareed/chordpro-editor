@@ -19,14 +19,23 @@
     function selectSectionChord(element) {
       angular.element(document.getElementById('song')).scope().changeSectionChord();
     }
-    function moveChordRight(element) {
+    function moveChordRight() {
       angular.element(document.getElementById('song')).scope().moveChordRight();
     }
-    function moveChordLeft(element) {
+    function moveChordLeft() {
       angular.element(document.getElementById('song')).scope().moveChordLeft();
     }
-    function confirmMoveChord(element) {
-      angular.element(document.getElementById('song')).scope().confirmMoveChord();
+    function cancelUpdateSection() {
+      location.href = "#/songs/" + songid;
+    }
+    function updateSection() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      angular.element(document.getElementById('song')).scope().updateSection();
+      location.href = "#/songs/" + songid;
+    }
+    function selectSectionChord(element) {
+      var chordid = element.id.substring(2, element.id.length);
+      angular.element(document.getElementById('song')).scope().changeSectionChord(chordid);
     }
     function selectSection(element) {
       var secid = element.id.substring(2, element.id.length);

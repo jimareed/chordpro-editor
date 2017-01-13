@@ -245,6 +245,34 @@ describe('#song', function() {
     })
   });
 
+  it("should update a chord lyric position (column)",function(done){
+    //calling ADD api
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      "{t:Greensleeves}\n" +
+      "{st:Traditional}\n" +
+      "{define: Am base-fret 0 frets x 0 2 2 1 0}\n" +
+      "A[Am]las, my [C]love, you [G]do me [Em]wrong,\n"
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .put('/api/song/' + id + "/chords/0")
+      .send({ col:5 })
+      .end(function(){
+        test
+        .get('/api/song/' + id)
+        .end(function(err,res) {
+          res.body.chorddefs.length.should.equal(4);
+          res.body.chords[0].col.should.equal(5);
+          done();
+        })
+      })
+    })
+  });
 
   it("should end test with instructions",function(done){
     //calling ADD api

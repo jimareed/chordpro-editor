@@ -37,6 +37,10 @@ app.service('service', function($http){
     return $http.put('/api/song/' + id + '/chords/' + chordid, name)
   }
 
+  this.moveChord = function(col, id, chordid) {
+    return $http.put('/api/song/' + id + '/chords/' + chordid, col)
+  }
+
   this.getSection = function(id, sectionid) {
     return $http.get('/api/song/' + id + '/sections/' + sectionid)
   }
@@ -96,29 +100,41 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     service.getSection(id, sectionid)
     .success(function(section) {
       $scope.section = section;
-      $scope.from = { row:0 , col:9 };
-      $scope.to = { row:0 , col:9 };
+      $scope.sectionid = sectionid;
+      if ($scope.section.chords.length > 0) {
+        $scope.from = $scope.section.chords[0];
+        $scope.to = $scope.section.chords[0];
+      }
+    });
+    service.getSong(id)
+    .success(function(song) {
+      $scope.song = song;
     });
   }
 
-  $scope.changeSectionChord = function() {
+  $scope.changeSectionChord = function(chordId) {
 
-    $scope.from = { row:0 , col:23 };
-    $scope.to = { row:0 , col:23 };
+    var ch = parseInt(chordId);
+
+    $scope.from = $scope.section.chords[ch];
+    $scope.to = $scope.section.chords[ch];
+    $scope.confirmMoveChord();
   }
 
   $scope.moveChordRight = function() {
 
     $scope.to.col += 1;
+    $scope.confirmMoveChord();
   }
 
   $scope.moveChordLeft = function() {
 
     $scope.to.col -= 1;
+    $scope.confirmMoveChord();
   }
 
-  $scope.confirmMoveChord = function() {
-
+  $scope.updateSection = function() {
+    console.log("update section");
   }
 
   $scope.filterMutedStrings = function(note) {
@@ -180,6 +196,19 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
         .success(function(song) {
           $scope.song = song;
           $scope.fretboard.chorddef.name = $scope.newchordname;
+        });
+      }
+    }
+  }
+
+  $scope.confirmMoveChord = function() {
+    console.log("confirmMoveChord");
+    for (chordid = 0; chordid < $scope.song.chords.length; chordid++) {
+      if ($scope.song.chords[chordid].name == $scope.from.name && $scope.song.chords[chordid].line == ($scope.from.line + $scope.song.sections[$scope.sectionid].start + 1) && $scope.song.chords[chordid].col == $scope.from.col) {
+        console.log("move chord!!!!!");
+        service.moveChord({ col:$scope.to.col }, $scope.song._id, chordid)
+        .success(function(song) {
+          $scope.song = song;
         });
       }
     }
