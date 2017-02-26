@@ -45,6 +45,10 @@ app.service('service', function($http){
     return $http.get('/api/song/' + id + '/sections/' + sectionid)
   }
 
+  this.updateSection = function(id, section, sectionid) {
+    return $http.put('/api/song/' + id + '/sections/' + sectionid, section)
+  }
+
   this.getFretboard = function() {
     return $http.get('/api/fretboard')
   }
@@ -134,7 +138,10 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
   }
 
   $scope.updateSection = function() {
-    console.log("update section");
+    service.updateSection($scope.section._id, {section:$scope.section}, $scope.sectionid)
+    .success(function(song) {
+      $scope.song = song;
+    });
   }
 
   $scope.filterMutedStrings = function(note) {

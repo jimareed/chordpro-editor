@@ -245,6 +245,49 @@ describe('#song', function() {
     })
   });
 
+  it("should update a section",function(done){
+
+    var TWOVERSESONG =
+        "{t:Greensleeves}\n" +
+        "{st:Traditional}\n" +
+        "Verse 1\n" +
+        "A[Am]las, my [C]love, you [G]do me [Em]wrong,\n" +
+        "to [Am]cast me off disc[E]ourteously.\n" +
+        "For [Am]I have [C]loved you [G]well and [Em]long,\n" +
+        "de[Am]lighting [E7]in your [Am]company.\n" +
+        "Verse 2\n" +
+        "Greensleeves was all my joy,\n" +
+        "Greensleeves was my delight\n" +
+        "Greensleeves was my heart of gold,\n" +
+        "and who but my lady greensleeves.\n";
+
+    var test = request;
+    test
+    .post('/api/song')
+    .send({text :
+      TWOVERSESONG
+    })
+    .end(function(err,res){
+      (err == null).should.be.true;
+      id = res.body._id;
+      test
+      .get('/api/song/' + id + "/sections/0")
+      .send()
+      .end(function(err,res){
+        (err == null).should.be.true;
+        id = res.body._id;
+        test
+        .put('/api/song/' + id + "/sections/1")
+        .send({section:res.body})
+        .end(function(err,res){
+          (err == null).should.be.true;
+          res.body.chords.length.should.equal(26);
+          done();
+        })
+      })
+    })
+  });
+
   it("should update a chord lyric position (column)",function(done){
     //calling ADD api
     var test = request;

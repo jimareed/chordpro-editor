@@ -36,7 +36,8 @@ function parseSong(newText) {
           lyrics: [],
           chorddefs:[],
           chords: [],
-          text: ""
+          text: "",
+          sections:[]
       };
 
   if (!text2chordpro.isChordpro(newText)) {
@@ -141,14 +142,34 @@ router.put('/:id/chords/:chordid',function(req,res,next) {
 
 router.get('/:id/sections/:sectionid',function(req,res,next) {
   var song = getSong(req.params.id);
-  var section = { title:"" , chords:[] , lyrics:[] };
+  var section = { title:"" , chords:[] , lyrics:[] , _id:''};
 
   if (song != null) {
     section = chordpro.getSection(song, req.params.sectionid);
+    section._id = req.params.id;
   }
 
   logger.info("get sections" , { id: req.params.sectionid });
   res.json(section);
+});
+
+router.put('/:id/sections/:sectionid',function(req,res,next) {
+  var song = getSong(req.params.id);
+
+  if (song != null) {
+    var id = parseInt(song._id);
+    if (req.params.sectionid >= 0 && req.params.sectionid < song.sections.length) {
+      if ( req.body.hasOwnProperty('section') ) {
+        song = chordpro.copyChords(song, req.body.section, req.params.sectionid);
+      }
+      song._id = req.params.id;
+      songs[id] = song;
+    }
+
+    logger.info("put section" , req.params.sectionid);
+
+  	res.status(200).json(song);
+  }
 });
 
 module.exports = router
