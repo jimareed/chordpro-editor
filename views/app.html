@@ -49,6 +49,19 @@
       angular.element(document.getElementById('chord')).scope().updateChord();
       location.href = "#/";
     }
+    function editChordpro() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      location.href = "#/songs/" + songid + "/chordpro";
+    }
+    function cancelChordpro() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      location.href = "#/songs/" + songid;
+    }
+    function updateChordpro() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      angular.element(document.getElementById('song')).scope().updateSong();
+      location.href = "#/songs/" + songid;
+    }
   </script>
 </head>
 <body>

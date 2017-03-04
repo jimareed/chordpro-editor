@@ -1,0 +1,16 @@
+<div id="song">
+  <div ng-init="init()" class="navbar navbar-inverse">
+    <a class="navbar-brand" href="#">Chord Sequence - Chordpro Editor</a>
+  </div>
+  <div>
+    <form>
+      <div class="modal-body">
+        <textarea class="form-control" rows="20" cols="80" ng-model="song.text"></textarea>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" onclick="cancelChordpro()">Cancel</a>
+        <a class="btn btn-default" onclick="updateChordpro()">Update</a>
+      </div>
+    </form>
+  </div>
+</div>
