@@ -1,11 +1,16 @@
 <div id="song">
   <div ng-init="init()" class="navbar navbar-inverse">
     <a class="navbar-brand" href="#">Chord Sequence - Edit Chordpro</a>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-right">
+        <li><a onclick="copyChordpro()"><span class="glyphicon glyphicon-copy"></span></a></li>
+      </ul>
+    </div>
   </div>
   <div>
     <form>
       <div class="modal-body">
-        <textarea class="form-control" rows="20" cols="80" ng-model="song.text"></textarea>
+        <textarea autofocus onclick="this.focus();this.select()" id="chordproText" class="form-control" rows="20" cols="80" ng-model="song.text"></textarea>
       </div>
       <div class="modal-footer">
         <a class="btn btn-default" onclick="cancelChordpro()">Cancel</a>

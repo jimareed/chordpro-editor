@@ -66,6 +66,11 @@
       angular.element(document.getElementById('song')).scope().updateSong();
       location.href = "#/songs/" + songid;
     }
+    function copyChordpro() {
+      document.getElementById("chordproText").focus();
+      document.getElementById("chordproText").select();
+      document.execCommand('copy');
+    }
   </script>
 </head>
 <body>
