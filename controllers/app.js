@@ -67,6 +67,7 @@ app.config(function($routeProvider) {
       .when('/chord', { controller:'controller' , templateUrl:'views/chord.html'})
       .when('/songs/:id/sections/:sectionid', { controller:'controller' , templateUrl:'views/section.html'})
       .when('/songs/:id/chordpro', { controller:'controller' , templateUrl:'views/chordpro.html'})
+      .when('/songs/:id/copychords', { controller:'controller' , templateUrl:'views/copychords.html'})
       .when('/songs/:id', { controller:'controller' , templateUrl:'views/song.html'})
 });
 

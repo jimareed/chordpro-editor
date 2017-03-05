@@ -1,0 +1,34 @@
+<div id="song">
+  <div ng-init="init()" class="navbar navbar-inverse">
+    <a class="navbar-brand" href="#">Chord Sequence - Copy Chords</a>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-right">
+      </ul>
+    </div>
+  </div>
+  <div>
+    <form>
+      <div class="modal-body" align="center">
+        <select>
+            <option>Verse 1</option>
+            <option>Verse 2</option>
+            <option>Chorus 1</option>
+            <option>Verse 3</option>
+            <option>Chorus 2</option>
+         </select>
+        <span class="glyphicon glyphicon-arrow-right"></span>
+        <select>
+            <option>Verse 1</option>
+            <option>Verse 2</option>
+            <option>Chorus 1</option>
+            <option>Verse 3</option>
+            <option>Chorus 2</option>
+         </select>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" onclick="cancelCopyChords()">Cancel</a>
+        <a class="btn btn-default" onclick="updateCopyChords()">Update</a>
+      </div>
+    </form>
+  </div>
+</div>
