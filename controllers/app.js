@@ -8,7 +8,11 @@ var defaultSong = {text:
   "{st:Artist Name}\n" +
   "Verse 1\n" +
   "Click on [Am]the pencil to [C]copy/paste a [E]song\n" +
-  "in [Am]ChordPro format. [C]Click on a [C]chord [E7]to edit it.\n"
+  "in [Am]ChordPro format. [C]Click on a chord [E7]to edit it.\n" +
+  "Verse 2\n" +
+  "Click on a [Am]verse to [C]change the chord [D]positions.\n" +
+  "Click on the [E]two documents [C]to copy chords from one\n" +
+  "verse to [E7]another.\n"
 };
 
 app.service('service', function($http){
@@ -163,6 +167,13 @@ app.controller("controller", function($scope, $localStorage, $routeParams, servi
     .success(function(song) {
       $scope.song = song;
     });
+  }
+
+  $scope.copyChords = function() {
+//    service.copyChords({text:$scope.song.text}, $scope.song._id)
+//    .success(function(song) {
+//      $scope.song = song;
+//    });
   }
 
   $scope.editChord = function(chordId) {

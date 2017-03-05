@@ -71,6 +71,20 @@
       document.getElementById("chordproText").select();
       document.execCommand('copy');
     }
+    function copyChords() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      location.href = "#/songs/" + songid + "/copychords";
+    }
+    function cancelCopyChords() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      location.href = "#/songs/" + songid;
+    }
+    function updateCopyChords() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
+      angular.element(document.getElementById('song')).scope().copyChords();
+      alert("still under development");
+      location.href = "#/songs/" + songid;
+    }
   </script>
 </head>
 <body>

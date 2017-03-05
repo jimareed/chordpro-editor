@@ -326,8 +326,12 @@ describe('#song', function() {
       "{t:Song Title}\n" +
       "{st:Artist Name}\n" +
       "Verse 1\n" +
-      "Click on [Am]the pencil to [C]copy/paste a [E]song in [Am]ChordPro format.\n" +
-      "[C]Click on a [C]chord [E7]to edit it.\n"
+      "Click on [Am]the pencil to [C]copy/paste a [E]song\n" +
+      "in [Am]ChordPro format.  [C]Click on a chord [E7]to edit it.\n" +
+      "Verse 2\n" +
+      "Click on a [Am]verse to [C]change chord [D]positions.\n" +
+      "Click on the [E]two documents [C]to copy chords from\n" +
+      "one verse to [E7]another.\n"
     })
     .end(function(err,res){
       (err == null).should.be.true;
@@ -335,7 +339,7 @@ describe('#song', function() {
       test
       .get('/api/song/' + id)
       .end(function(err,res) {
-        res.body.chorddefs.length.should.equal(4);
+        res.body.chorddefs.length.should.equal(5);
         done();
       })
     })
