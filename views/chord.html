@@ -1,10 +1,9 @@
 <div id="chord">
   <div ng-init="init()" class="navbar navbar-inverse">
-    <a class="navbar-brand" href="#">Chord Sequence - Chord Editor</a>
+    <a class="navbar-brand" href="#">Chord Sequence - Edit Chord</a>
   </div>
-  <div class="panel panel-default row">
-    <div class="col-xs-12">
-      <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modelEditChord"><span class="glyphicon glyphicon-pencil"></span></button>
+  <div>
+    <div>
       <div id="modelEditChord" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -27,45 +26,49 @@
         </div>
       </div>
       <div>
-        <h3>
-          <strong>{{fretboard.chorddef.name}}</strong>
-        </h3>
-        <svg width="240" height="160">
-          <rect x="0" y="0" width="220" height="160" style="fill:rgb(0,0,0);stroke-width:8;stroke:rgb(255,0,0)" stroke-opacity="0.0" fill-opacity="0.0"/>
-          <line x1="28" y1="24" x2="180" y2="24" style="stroke:rgb(0,0,0);stroke-width:12" />
-          <line x1="28" y1="60" x2="180" y2="60" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <line x1="28" y1="88" x2="180" y2="88" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <line x1="28" y1="120" x2="180" y2="120" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <line x1="28" y1="148" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <line x1="28" y1="20" x2="28" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <line x1="60" y1="20" x2="60" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
-          <line x1="88" y1="20" x2="88" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
-          <line x1="120" y1="20" x2="120" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
-          <line x1="148" y1="20" x2="148" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
-          <line x1="180" y1="20" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
-          <!-- selected frets -->
-          <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.opacity}}" fill-opacity="{{note.opacity}}"/>
-          <text ng-if="fretboard.chorddef.basefret != 0" x = "205" y = "50" font-size = "24" font-family="Courier" font-weight="bold">{{fretboard.chorddef.basefret}}</text>
-          <!-- x's -->
-          <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx-2)*4}}" y1="0" x2="{{(coordinate.cx+3)*4}}" y2="20" stroke="black" stroke-width="4"/>
-          <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx+3)*4}}" y1="0" x2="{{(coordinate.cx-2)*4}}" y2="20" stroke="black" stroke-width="4"/>
-        </svg>
-        <table>
-          <tr>
-            <td width="30"/>
+        <table width="100%">
+          <tr align="center">
             <td>
-              <a class="btn btn-default" href="/">
-                  Cancel
-              </a>
+              <h3>
+                <strong>{{fretboard.chorddef.name}}</strong>
+                <button type="button" style="background-color: transparent;" class="btn" data-toggle="modal" data-target="#modelEditChord"><span class="glyphicon glyphicon-pencil"></span></button>
+              </h3>
             </td>
-            <td>
-              <a class="btn btn-default" onclick="update()">
-                  Update
-              </a>
-            </td>
-
           </tr>
+          <tr align="center">
+            <td>
+              <svg width="240" height="160">
+                <rect x="0" y="0" width="220" height="160" style="fill:rgb(0,0,0);stroke-width:8;stroke:rgb(255,0,0)" stroke-opacity="0.0" fill-opacity="0.0"/>
+                <line x1="28" y1="24" x2="180" y2="24" style="stroke:rgb(0,0,0);stroke-width:12" />
+                <line x1="28" y1="60" x2="180" y2="60" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="28" y1="88" x2="180" y2="88" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="28" y1="120" x2="180" y2="120" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="28" y1="148" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="28" y1="20" x2="28" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <line x1="60" y1="20" x2="60" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+                <line x1="88" y1="20" x2="88" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+                <line x1="120" y1="20" x2="120" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+                <line x1="148" y1="20" x2="148" y2="148" style="stroke:rgb(0,0,0);stroke-width:1" />
+                <line x1="180" y1="20" x2="180" y2="148" style="stroke:rgb(0,0,0);stroke-width:2" />
+                <!-- selected frets -->
+                <circle ng-repeat="note in fretboard.positions" id="{{$index}}" onclick="clickNote(this)" cx="{{note.cx*4}}" cy="{{note.cy*4}}" r="12" stroke="black" stroke-width="1" fill="black" stroke-opacity="{{note.opacity}}" fill-opacity="{{note.opacity}}"/>
+                <text ng-if="fretboard.chorddef.basefret != 0" x = "205" y = "50" font-size = "24" font-family="Courier" font-weight="bold">{{fretboard.chorddef.basefret}}</text>
+                <!-- x's -->
+                <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx-2)*4}}" y1="0" x2="{{(coordinate.cx+3)*4}}" y2="20" stroke="black" stroke-width="4"/>
+                <line ng-repeat="coordinate in fretboard.chorddef.positions | filter:search | filter:filterMutedStrings" x1="{{(coordinate.cx+3)*4}}" y1="0" x2="{{(coordinate.cx-2)*4}}" y2="20" stroke="black" stroke-width="4"/>
+              </svg>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
+  </div>
+  <div>
+    <form>
+      <div class="modal-footer">
+        <a class="btn btn-default" onclick="cancelEditChord()">Cancel</a>
+        <a class="btn btn-default" onclick="update()">Update</a>
+      </div>
+    </form>
   </div>
 </div>

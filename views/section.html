@@ -1,9 +1,8 @@
 <div id="song">
   <div ng-init="initSection()" class="navbar navbar-inverse">
-    <a class="navbar-brand" href="#">Chord Sequence - Chordpro Editor</a>
+    <a class="navbar-brand" href="#">Chord Sequence - Edit Section</a>
   </div>
-  <div class="panel panel-default row">
-    <div class="col-xs-12">
+    <div>
       <div>
         <table width="100%">
           <tr>
@@ -38,13 +37,15 @@
               </svg>
             </td>
           </tr>
-          <tr>
-            <td align="center">
-              <button type="button" onclick="cancelUpdateSection()" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
-              <button type="button" onclick="updateSection()" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
-            </td>
-          </tr>
         </table>
     </div>
+  </div>
+  <div>
+    <form>
+      <div class="modal-footer">
+        <a class="btn btn-default" onclick="cancelUpdateSection()">Cancel</a>
+        <a class="btn btn-default" onclick="updateSection()">Update</a>
+      </div>
+    </form>
   </div>
 </div>

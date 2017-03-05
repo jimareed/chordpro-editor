@@ -26,6 +26,7 @@
       angular.element(document.getElementById('song')).scope().moveChordLeft();
     }
     function cancelUpdateSection() {
+      var songid = angular.element(document.getElementById('song')).scope().song._id;
       location.href = "#/songs/" + songid;
     }
     function updateSection() {
@@ -44,6 +45,9 @@
     }
     function clickNote(element) {
       angular.element(document.getElementById('chord')).scope().selectNote(element.id);
+    }
+    function cancelEditChord() {
+      location.href = "#/";
     }
     function update() {
       angular.element(document.getElementById('chord')).scope().updateChord();
