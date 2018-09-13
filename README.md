@@ -5,34 +5,11 @@ Simple chordpro editor
 ![Edit Chordpro](images/screenshot-edit-chordpro.png)
 ![Edit Chords](images/screenshot-edit-chord.png)
 
-## setup
-
+## run
 ```
-install project
-install docker
-build and run
+docker run -p 3000:3000 -d --name chordpro-editor jimareed/chordpro-editor
 ```
-
-
-## install project
-
-```
-cd /opt
-git clone https://github.com/jimareed/chordpro-editor
-```
-
-## install docker
-```
-sudo yum install -y docker
-sudo service docker start
-```
-
-## build and run
-```
-cd /opt/chordpro-editor
-docker build -t chordpro-editor-image .
-docker run -p 3000:3000 -d --name chordpro-editor chordpro-editor-image
-```
+> browse to http://localhost:3000
 
 ## cleanup
 ```
