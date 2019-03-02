@@ -30,3 +30,21 @@ mongoose.connect('__mongo_connection_string__',function() {
 cd /opt/chordpro-editor
 ./node_modules/.bin/mocha tests
 ```
+
+## build and run docker container locally
+```
+docker build --tag chordpro-editor-image .
+docker run --name chordpro-editor -p 3000:3000 -d chordpro-editor-image
+```
+## clean up
+```
+docker stop chordpro-editor
+docker rm chordpro-editor
+docker rmi chordpro-editor-image
+```
+
+## build and run server locally
+```
+npm install
+node server
+```

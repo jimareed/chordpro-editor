@@ -3,19 +3,8 @@ var chorddefs = require('../../lib/chorddefs');
 var fretboard = require('../../lib/fretboard');
 var text2chordpro = require('../../lib/text2chordpro');
 var router = require('express').Router();
-var winston = require('winston');
-//var Song = require('../../models/song')
 var Song = require('../../lib/songinmem');
 
-var logger = new (winston.Logger)({
-    transports: [
-       new (winston.transports.File)({
-           name: 'info-file',
-           filename: 'server.log',
-           level: 'info'
-           })
-    ]
-});
 
 var songs = [];
 
@@ -72,12 +61,10 @@ router.get('/:id',function(req,res,next) {
         song = parseSong(dbSong.text);
         songs.push(song);
         res.json(song);
-        logger.info("get" , { title: song.title });
       }
     });
   } else {
     res.json(song);
-    logger.info("get" , { title: song.title });
   }
 });
 
@@ -110,8 +97,6 @@ router.put('/:id',function(req,res,next) {
     song._id = req.params.id;
     songs[id] = song;
 
-    logger.info("put" , { title: song.title });
-
   	res.status(200).json(song);
   }
 });
@@ -134,8 +119,6 @@ router.put('/:id/chords/:chordid',function(req,res,next) {
       songs[id] = song;
     }
 
-    logger.info("put chords" , { name: req.body.name });
-
   	res.status(200).json(song);
   }
 });
@@ -149,7 +132,6 @@ router.get('/:id/sections/:sectionid',function(req,res,next) {
     section._id = req.params.id;
   }
 
-  logger.info("get sections" , { id: req.params.sectionid });
   res.json(section);
 });
 
@@ -165,8 +147,6 @@ router.put('/:id/sections/:sectionid',function(req,res,next) {
       song._id = req.params.id;
       songs[id] = song;
     }
-
-    logger.info("put section" , req.params.sectionid);
 
   	res.status(200).json(song);
   }

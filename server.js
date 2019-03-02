@@ -11,6 +11,8 @@ config
 var app = express()
 app.use(bodyParser.json())
 
+const PORT = process.env.PORT || 3000
+
 var sessionOptions = {
   secret: "secret",
   resave : true,
@@ -23,6 +25,6 @@ app.use('/api/songdb', require('./controllers/api/songdb'))
 app.use('/api/fretboard',require('./controllers/api/fretboard'))
 app.use(require('./controllers/static'))
 
-app.listen(3000,function(){
+app.listen(PORT,function(){
    console.log('Server listening on', 3000)
 })

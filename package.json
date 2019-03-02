@@ -1,15 +1,13 @@
 {
   "name": "chordpro-editor",
   "dependencies": {
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3",
+    "body-parser": "*",
+    "express": "*",
     "express-session": "*",
     "mocha": "*",
     "chai": "*",
     "supertest": "*",
-    "winston": "*",
-    "winston-logstash":"*",
-    "commander":"*",
-    "mongoose": "^4.2.7"
+    "commander": "*",
+    "mongoose": "*"
   }
 }
