@@ -1,18 +1,34 @@
 # chordpro-editor
-chordpro-editor is a simple editor for editing guitar songs in the ChordPro format. It's useful when the online version of a song isn't quite the way you like to play it.
+Hobby project using the MEAN stack.  Chordpro-editor is a simple editor for editing guitar songs in the ChordPro format. It's useful when the online version of a song isn't quite the way you like to play it.
 
-![Basic Chordpro Editor](images/screenshot-main.png)
+<p  align="center">
+    <img src="./images/screenshot-main.png" alt="Chordpro Editor"
+       width="80%" height="80%"/>
+</p>
+<br/><br/>
 
-Click on the pencil icon at the top right to edit the song lyrics.  
-![Edit Chordpro](images/screenshot-edit-chordpro.png)
+
 
 Click on the chord at the top of the song to change the chord or the chord position (i.e., change to a different chord inversion).  
-![Edit Chords](images/screenshot-edit-chord.png)
+<p align="center">
+  <img src="./images/screenshot-edit-chord.png" alt="Edit Chord" width="40%" height="40%"/>
+</p>
+<br/><br/>
 
-Click on the lyrics to change the location of a chord within a verse.
-![Edit Verse](images/screenshot-edit-verse.png)
+Click on the pencil icon at the top right to edit the song lyrics.  
+<p  align="center">
+    <img src="./images/screenshot-edit-chordpro.png" alt="Edit Chordpro"
+       width="80%" height="80%"/>
+</p>
+<br/><br/>
 
-chordpro-editor was developed using the MEAN stack.
+Click on the Verse to change the location of the chord in the the lyrics.
+<p  align="center">
+    <img src="./images/screenshot-edit-verse.png" alt="Edit Verse"
+       width="80%" height="80%"/>
+</p>
+<br/><br/>
+
 
 
 ## run
